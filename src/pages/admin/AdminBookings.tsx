@@ -256,45 +256,35 @@ const AdminBookings = () => {
                             "en-IN"
                           )}
                         </td>
-
                         <td className="px-5 py-4">
                           <StatusBadge
                             status={
-                              booking.bookingStatus
+                              booking.bookingStatus.charAt(0).toUpperCase() + booking.bookingStatus.slice(1)
                             }
                           />
                         </td>
-
                         <td className="px-5 py-4">
                           <StatusBadge
                             status={
-                              booking.paymentStatus
+                              booking.paymentStatus.charAt(0).toUpperCase() + booking.paymentStatus.slice(1)
                             }
                           />
                         </td>
-
                         <td className="px-5 py-4 font-mono text-sm">
                           {booking.paymentId ||
                             "-"}
                         </td>
-
                         <td className="px-5 py-4 text-sm">
                           {new Date(
                             booking.createdAt
                           ).toLocaleString()}
                         </td>
-
                       </tr>
-
                     )
                   )}
-
                 </tbody>
-
               </table>
-
             </div>
-
           </div>
         )}
 

@@ -537,7 +537,7 @@ const AdminDashboard = () => {
                         <td className="px-4 py-4">
                           <StatusBadge
                             status={
-                              booking.paymentStatus
+                              booking.paymentStatus.charAt(0).toUpperCase() + booking.paymentStatus.slice(1)
                             }
                           />
                         </td>

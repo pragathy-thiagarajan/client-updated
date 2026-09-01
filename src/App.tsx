@@ -34,7 +34,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-
         <Route element={<ProtectedRoute />}>
           <Route path="/events/:id/book" element={<CreateBooking />} />
           <Route path="/bookings/:id" element={<BookingDetails />} />
@@ -45,8 +44,6 @@ function App() {
         <Route element={<RoleRoute allowedRoles={["organizer"]} />}>
           <Route path="/organizer" element={<OrganizerDashboard />} />
           <Route path="/organizer/analytics" element={<OrganizerAnalytics />} />
-          <Route path="/admin/users" element={<AdminUsers />} />
-          <Route path="/admin/events" element={<AdminEvents />} />{" "}
           <Route path="/organizer/events" element={<OrganizerEvents />} />
           <Route path="/organizer/events/create" element={<CreateEvent />} />
           <Route path="/organizer/events/:id/edit" element={<EditEvent />} />
@@ -54,6 +51,10 @@ function App() {
             path="/organizer/events/:eventId/attendees"
             element={<Attendees />}
           />
+        </Route>
+        <Route element={<RoleRoute allowedRoles={["admin"]} />}>
+          <Route path="/admin/users" element={<AdminUsers />} />
+          <Route path="/admin/events" element={<AdminEvents />} />{" "}
           <Route path="/admin/feedback" element={<AdminFeedback />} />
           <Route path="/events/:eventId/feedback" element={<Feedback />} />
           <Route path="/support" element={<Support />} />

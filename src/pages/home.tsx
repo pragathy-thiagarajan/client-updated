@@ -23,7 +23,7 @@ const Home = () => {
               <Link to="/events" className="primary-btn">Explore events <span className="ml-2">→</span></Link>
               {!user && <Link to="/login" className="secondary-btn">Sign in to book</Link>}
               {user?.role === "organizer" && <Link to="/organizer/events/create" className="secondary-btn">Create an event</Link>}
-              {user?.role === "admin" && <Link to="/admin" className="secondary-btn">Open admin</Link>}
+              {user?.role === "admin" && <Link to="/admin" className="secondary-btn">Open admin dashboard</Link>}
             </div>
 
             {user && (

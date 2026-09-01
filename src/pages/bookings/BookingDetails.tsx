@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { getBooking } from "../../api/bookingApi";
 import { transferBooking } from "../../api/bookingApi";
+
 interface Booking {
   _id: string;
   ticketType: string;
@@ -21,15 +22,13 @@ interface Booking {
 
 const BookingDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+
 
   const [transferEmail, setTransferEmail] = useState("");
-
   const [transferring, setTransferring] = useState(false);
-
   const [successMessage, setSuccessMessage] = useState("");
-
   const [booking, setBooking] = useState<Booking | null>(null);
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -186,8 +185,7 @@ const BookingDetails = () => {
 
             <div className="flex justify-between">
               <span className="text-slate-500">Payment status</span>
-
-              <span className="font-medium">{booking.paymentStatus}</span>
+              <span className="font-medium">{booking.paymentStatus.charAt(0).toUpperCase() + booking.paymentStatus.slice(1)}</span>
             </div>
           </div>
 

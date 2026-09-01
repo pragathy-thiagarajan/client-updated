@@ -29,6 +29,7 @@ const CreateEvent = () => {
     eventDate: "",
     startTime: "",
     endTime: "",
+    bannerImage: "",
     videoUrl: "",
   });
 
@@ -211,10 +212,15 @@ const CreateEvent = () => {
 
     try {
       setLoading(true);
+      const ticketPayload = ticketTypes.map((ticket) => ({
+        name: ticket.name,
+        price: ticket.price,
+        quantity: ticket.availableQuantity,
+      }));
 
       await createEvent({
         ...form,
-        ticketTypes,
+        ticketTypes: ticketPayload,
         schedule,
       });
 
@@ -305,46 +311,20 @@ const CreateEvent = () => {
                   className="w-full rounded-lg border px-4 py-3"
                 >
                   <option value="">Select category</option>
-
                   <option value="conference">Conference</option>
-
                   <option value="workshop">Workshop</option>
-
                   <option value="concert">Concert</option>
-
                   <option value="sports">Sports</option>
-
                   <option value="festival">Festival</option>
-
                   <option value="other">Other</option>
                 </select>
               </div>
 
               {/* Location */}
-
               <div>
                 <label className="mb-2 block text-sm font-medium">
                   Location
                 </label>
-                <div>
-                  <label className="mb-2 block text-sm font-medium">
-                    Event Video URL
-                  </label>
-
-                  <input
-                    type="url"
-                    name="videoUrl"
-                    value={form.videoUrl}
-                    onChange={handleChange}
-                    placeholder="YouTube video URL"
-                    className="w-full rounded-lg border px-4 py-3"
-                  />
-
-                  <p className="mt-1 text-xs text-slate-500">
-                    Optional promotional video for the event.
-                  </p>
-                </div>
-
                 <input
                   name="location"
                   value={form.location}
@@ -353,15 +333,53 @@ const CreateEvent = () => {
                   className="w-full rounded-lg border px-4 py-3"
                 />
               </div>
+              <div>
+                <label className="mb-2 block text-sm font-medium">
+                  Event Video URL
+                </label>
 
+                <input
+                  type="url"
+                  name="videoUrl"
+                  value={form.videoUrl}
+                  onChange={handleChange}
+                  placeholder="YouTube video URL"
+                  className="w-full rounded-lg border px-4 py-3"
+                />
+
+                <p className="mt-1 text-xs text-slate-500">
+                  Optional promotional video for the event.
+                </p>
+              </div>
+              <div>
+                <label className="mb-2 block text-sm font-medium">
+                  Event Banner Image
+                </label>
+                <input
+                  type="url"
+                  name="bannerImage"
+                  value={form.bannerImage}
+                  onChange={handleChange}
+                  placeholder="https://example.com/event-banner.jpg"
+                  className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-violet-500"
+                />
+                <p className="mt-2 text-sm text-slate-500">
+                  Enter the URL of the event banner image.
+                </p>
+                {form.bannerImage && (
+                  <img
+                    src={form.bannerImage}
+                    alt="Event preview"
+                    className="mt-4 h-52 w-full rounded-xl object-cover"
+                  />
+                )}
+              </div>
               {/* Date and time */}
-
               <div className="grid gap-5 md:grid-cols-3">
                 <div>
                   <label className="mb-2 block text-sm font-medium">
                     Event Date
                   </label>
-
                   <input
                     type="date"
                     name="eventDate"
@@ -370,12 +388,10 @@ const CreateEvent = () => {
                     className="w-full rounded-lg border px-4 py-3"
                   />
                 </div>
-
                 <div>
                   <label className="mb-2 block text-sm font-medium">
                     Start Time
                   </label>
-
                   <input
                     type="time"
                     name="startTime"

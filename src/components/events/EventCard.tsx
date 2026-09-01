@@ -37,7 +37,7 @@ const EventCard = ({ event }: EventCardProps) => {
         )}
 
         <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-xs font-bold text-violet-700 shadow-sm backdrop-blur">
-          {event.category}
+          {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
         </span>
 
         <div className="absolute bottom-4 left-4 flex h-16 w-14 flex-col items-center justify-center rounded-2xl bg-white text-center shadow-lg shadow-slate-900/10">

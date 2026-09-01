@@ -31,12 +31,11 @@ const EditEvent = () => {
     startTime: "",
     endTime: "",
     videoUrl: "",
+    bannerImage: "",
   });
 
   const [ticketTypes, setTicketTypes] = useState<TicketType[]>([]);
-
   const [schedule, setSchedule] = useState<ScheduleItem[]>([]);
-
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -54,7 +53,6 @@ const EditEvent = () => {
         setError("");
 
         const response = await getEventById(id);
-
         const event =
           response.data.event || response.data.data || response.data;
 
@@ -67,6 +65,7 @@ const EditEvent = () => {
           startTime: event.startTime || "",
           endTime: event.endTime || "",
           videoUrl: event.videoUrl || "",
+          bannerImage: event.bannerImage || "",
         });
 
         // =========================
@@ -283,10 +282,19 @@ const EditEvent = () => {
 
     try {
       setSaving(true);
+      const ticketPayload = ticketTypes.map((ticket) => ({
+        name: ticket.name,
+        price: ticket.price,
+
+        // Keep quantity populated for backend validation
+        quantity: ticket.availableQuantity,
+
+        availableQuantity: ticket.availableQuantity,
+      }));
 
       await updateEvent(id, {
         ...form,
-        ticketTypes,
+        ticketTypes: ticketPayload,
         schedule,
       });
 
@@ -373,7 +381,6 @@ const EditEvent = () => {
                 <label className="mb-2 block text-sm font-medium">
                   Category
                 </label>
-
                 <select
                   name="category"
                   value={form.category}
@@ -381,26 +388,18 @@ const EditEvent = () => {
                   className="w-full rounded-lg border px-4 py-3"
                 >
                   <option value="">Select category</option>
-
                   <option value="conference">Conference</option>
-
                   <option value="workshop">Workshop</option>
-
                   <option value="concert">Concert</option>
-
                   <option value="sports">Sports</option>
-
                   <option value="festival">Festival</option>
-
                   <option value="other">Other</option>
                 </select>
               </div>
-
               <div>
                 <label className="mb-2 block text-sm font-medium">
                   Location
                 </label>
-
                 <input
                   name="location"
                   value={form.location}
@@ -409,13 +408,52 @@ const EditEvent = () => {
                   className="w-full rounded-lg border px-4 py-3"
                 />
               </div>
+              <div>
+                <label className="mb-2 block text-sm font-medium">
+                  Event Video URL
+                </label>
 
+                <input
+                  type="url"
+                  name="videoUrl"
+                  value={form.videoUrl}
+                  onChange={handleChange}
+                  placeholder="YouTube video URL"
+                  className="w-full rounded-lg border px-4 py-3"
+                />
+
+                <p className="mt-1 text-xs text-slate-500">
+                  Optional promotional video for the event.
+                </p>
+              </div>
+              <div>
+                <label className="mb-2 block text-sm font-medium">
+                  Event Banner Image
+                </label>
+                <input
+                  type="url"
+                  name="bannerImage"
+                  value={form.bannerImage}
+                  onChange={handleChange}
+                  placeholder="https://example.com/event-banner.jpg"
+                  className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-violet-500"
+                />
+                <p className="mt-2 text-sm text-slate-500">
+                  Enter the URL of the event banner image.
+                </p>
+                {form.bannerImage && (
+                  <img
+                    src={form.bannerImage}
+                    alt="Event preview"
+                    className="mt-4 h-52 w-full rounded-xl object-cover"
+                  />
+                )}
+              </div>
               <div className="grid gap-4 md:grid-cols-3">
                 <div>
                   <label className="mb-2 block text-sm font-medium">
                     Event Date
                   </label>
-
                   <input
                     type="date"
                     name="eventDate"
@@ -424,12 +462,10 @@ const EditEvent = () => {
                     className="w-full rounded-lg border px-4 py-3"
                   />
                 </div>
-
                 <div>
                   <label className="mb-2 block text-sm font-medium">
                     Start Time
                   </label>
-
                   <input
                     type="time"
                     name="startTime"
@@ -438,12 +474,10 @@ const EditEvent = () => {
                     className="w-full rounded-lg border px-4 py-3"
                   />
                 </div>
-
                 <div>
                   <label className="mb-2 block text-sm font-medium">
                     End Time
                   </label>
-
                   <input
                     type="time"
                     name="endTime"

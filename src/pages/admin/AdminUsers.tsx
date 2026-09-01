@@ -278,7 +278,7 @@ const AdminUsers = () => {
                       <td className="px-6 py-4">
 
                         <StatusBadge
-                          status={user.status}
+                          status={user.status.charAt(0).toUpperCase() + user.status.slice(1)}
                         />
 
                       </td>

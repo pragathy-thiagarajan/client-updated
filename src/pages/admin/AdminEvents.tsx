@@ -281,7 +281,7 @@ const AdminEvents = () => {
                           "approved"
                         )
                       }
-                      className="flex-1 rounded-xl bg-violet-600 px-5 py-3 font-medium text-white disabled:opacity-50"
+                      className="rounded-xl bg-green-800 px-5 py-3 font-medium text-white disabled:opacity-50 h-[50px]"
                     >
                       {processingId === event._id
                         ? "Processing..."
@@ -300,7 +300,7 @@ const AdminEvents = () => {
                           "rejected"
                         )
                       }
-                      className="flex-1 rounded-lg border border-red-200 px-5 py-3 font-medium text-red-600 disabled:opacity-50"
+                      className="rounded-lg border border-red-200 px-5 py-3 font-medium text-red-600 disabled:opacity-50 h-[50px]"
                     >
                       Reject
                     </button>
