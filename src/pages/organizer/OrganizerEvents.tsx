@@ -115,7 +115,7 @@ const OrganizerEvents = () => {
                     <h2 className="text-xl font-semibold">{event.title}</h2>
 
                     <div className="mt-2 space-y-1 text-sm text-slate-500">
-                      <p>Category: {event.category}</p>
+                      <p>Category: {event.category.charAt(0).toUpperCase() + event.category.slice(1)}</p>
 
                       <p>Location: {event.location}</p>
 
@@ -135,7 +135,7 @@ const OrganizerEvents = () => {
                   <div className="flex flex-wrap gap-2">
                     <Link
                       to={`/organizer/events/${event._id}/attendees`}
-                      className="rounded-lg border px-4 py-2 text-sm font-medium hover:bg-slate-50/70"
+                      className="rounded-lg border px-4 py-2 text-sm font-medium hover:bg-slate-50/70 bg-yellow-200"
                     >
                       Attendees
                     </Link>

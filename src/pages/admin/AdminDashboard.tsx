@@ -362,7 +362,7 @@ const AdminDashboard = () => {
 
             <Link
               to="/admin/users"
-              className="rounded-lg border p-5 transition hover:bg-slate-50/70"
+              className="rounded-lg border p-5 transition hover:bg-slate-50/70 bg-sky-100"
             >
               <h3 className="font-semibold">
                 User Management
@@ -382,7 +382,7 @@ const AdminDashboard = () => {
 
             <Link
               to="/admin/bookings"
-              className="rounded-lg border p-5 transition hover:bg-slate-50/70"
+              className="rounded-lg border p-5 transition hover:bg-slate-50/70 bg-emerald-100"
             >
               <h3 className="font-semibold">
                 Booking Management
@@ -402,7 +402,7 @@ const AdminDashboard = () => {
 
             <Link
               to="/admin/events"
-              className="rounded-lg border p-5 transition hover:bg-slate-50/70"
+              className="rounded-lg border p-5 transition hover:bg-slate-50/70 bg-amber-100"
             >
               <h3 className="font-semibold">
                 Event Approval

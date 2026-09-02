@@ -5,6 +5,8 @@ export interface EventFilters {
   category?: string;
   location?: string;
   date?: string;
+  minPrice?: number;
+  maxPrice?: number;
 }
 
 export const getEvents = (params?: EventFilters) => {
