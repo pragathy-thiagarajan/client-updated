@@ -71,7 +71,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="border-y border-slate-200/70 bg-white/70">
+      {/* <section className="border-y border-slate-200/70 bg-white/70">
         <div className="mx-auto grid max-w-7xl gap-6 px-4 py-10 sm:grid-cols-3 sm:px-6 lg:px-8">
           {[
             ["Curated discovery", "Search and filter events by what matters to you."],
@@ -85,7 +85,7 @@ const Home = () => {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
     </main>
   );
 };

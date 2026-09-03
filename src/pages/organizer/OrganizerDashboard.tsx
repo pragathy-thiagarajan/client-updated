@@ -318,7 +318,7 @@ const OrganizerDashboard = () => {
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <Link
               to="/organizer/events"
-              className="rounded-lg border p-5 transition hover:bg-slate-50/70"
+              className="bg-sky-100 rounded-lg border p-5 transition hover:bg-slate-50/70"
             >
               <h3 className="font-semibold">Manage Events</h3>
 
@@ -329,7 +329,7 @@ const OrganizerDashboard = () => {
 
             <Link
               to="/organizer/events/create"
-              className="rounded-lg border p-5 transition hover:bg-slate-50/70"
+              className="bg-emerald-100 rounded-lg border p-5 transition hover:bg-slate-50/70"
             >
               <h3 className="font-semibold">Create Event</h3>
 
@@ -340,7 +340,7 @@ const OrganizerDashboard = () => {
 
             <Link
               to="/organizer/events"
-              className="rounded-lg border p-5 transition hover:bg-slate-50/70"
+              className="bg-amber-100 rounded-lg border p-5 transition hover:bg-slate-50/70"
             >
               <h3 className="font-semibold">Attendees</h3>
 

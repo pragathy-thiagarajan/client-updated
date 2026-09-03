@@ -40,6 +40,12 @@ function App() {
           <Route path="/bookings/:id/payment" element={<Payment />} />
           <Route path="/bookings/:id/ticket" element={<Ticket />} />
           <Route path="/my-bookings" element={<MyBookings />} />
+
+          {/* User support */}
+          <Route path="/support" element={<Support />} />
+
+          {/* User feedback */}
+          <Route path="/events/:eventId/feedback" element={<Feedback />} />
         </Route>
         <Route element={<RoleRoute allowedRoles={["organizer"]} />}>
           <Route path="/organizer" element={<OrganizerDashboard />} />
@@ -54,12 +60,10 @@ function App() {
         </Route>
         <Route element={<RoleRoute allowedRoles={["admin"]} />}>
           <Route path="/admin/users" element={<AdminUsers />} />
-          <Route path="/admin/events" element={<AdminEvents />} />{" "}
-          <Route path="/admin/feedback" element={<AdminFeedback />} />
-          <Route path="/events/:eventId/feedback" element={<Feedback />} />
-          <Route path="/support" element={<Support />} />
-          <Route path="/admin/support" element={<AdminSupport />} />
+          <Route path="/admin/events" element={<AdminEvents />} />
           <Route path="/admin/bookings" element={<AdminBookings />} />
+          <Route path="/admin/support" element={<AdminSupport />} />
+          <Route path="/admin/feedback" element={<AdminFeedback />} />
         </Route>
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/events" element={<EventList />} />

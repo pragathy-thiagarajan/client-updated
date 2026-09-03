@@ -34,6 +34,15 @@ const Navbar = () => {
           <NavLink to="/events" className={navLinkClass}>Events</NavLink>
 
           {user && <NavLink to="/my-bookings" className={navLinkClass}>My Bookings</NavLink>}
+          
+          {user?.role === "user" && (
+            <Link
+              to="/support"
+              className="text-sm font-medium text-slate-600 hover:text-violet-600"
+            >
+              Support
+            </Link>
+          )}
           {user?.role === "organizer" && <NavLink to="/organizer" className={navLinkClass}>Organizer</NavLink>}
           {user?.role === "admin" && <NavLink to="/admin" className={navLinkClass}>Admin</NavLink>}
 
