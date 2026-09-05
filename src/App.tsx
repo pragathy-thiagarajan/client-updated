@@ -26,6 +26,7 @@ import Support from "./pages/user/Support";
 import AdminSupport from "./pages/admin/AdminSupport";
 import Feedback from "./pages/user/Feedback";
 import AdminFeedback from "./pages/admin/AdminFeedback";
+import Register from "./pages/auth/register";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/events/:id/book" element={<CreateBooking />} />
           <Route path="/bookings/:id" element={<BookingDetails />} />

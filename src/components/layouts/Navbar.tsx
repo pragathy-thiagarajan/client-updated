@@ -25,16 +25,26 @@ const Navbar = () => {
             E
           </span>
           <div className="hidden sm:block">
-            <p className="text-base font-extrabold tracking-tight text-slate-950">EventHub</p>
-            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">Discover · Book · Attend</p>
+            <p className="text-base font-extrabold tracking-tight text-slate-950">
+              EventHub
+            </p>
+            <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-400">
+              Discover · Book · Attend
+            </p>
           </div>
         </Link>
 
         <div className="flex items-center gap-1 sm:gap-2">
-          <NavLink to="/events" className={navLinkClass}>Events</NavLink>
+          <NavLink to="/events" className={navLinkClass}>
+            Events
+          </NavLink>
 
-          {user && <NavLink to="/my-bookings" className={navLinkClass}>My Bookings</NavLink>}
-          
+          {user && (
+            <NavLink to="/my-bookings" className={navLinkClass}>
+              My Bookings
+            </NavLink>
+          )}
+
           {user?.role === "user" && (
             <Link
               to="/support"
@@ -43,20 +53,39 @@ const Navbar = () => {
               Support
             </Link>
           )}
-          {user?.role === "organizer" && <NavLink to="/organizer" className={navLinkClass}>Organizer</NavLink>}
-          {user?.role === "admin" && <NavLink to="/admin" className={navLinkClass}>Admin</NavLink>}
+          {user?.role === "organizer" && (
+            <NavLink to="/organizer" className={navLinkClass}>
+              Organizer
+            </NavLink>
+          )}
+          {user?.role === "admin" && (
+            <NavLink to="/admin" className={navLinkClass}>
+              Admin
+            </NavLink>
+          )}
 
           {!user ? (
-            <Link
-              to="/login"
-              className="ml-1 rounded-xl bg-violet-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm shadow-violet-200 hover:-translate-y-0.5 hover:bg-violet-700"
-            >
-              Sign in
-            </Link>
+            <div className="flex items-center gap-3">
+              <Link
+                to="/login"
+                className="rounded-xl px-4 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+              >
+                Login
+              </Link>
+
+              <Link
+                to="/register"
+                className="rounded-xl bg-violet-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-violet-700"
+              >
+                Sign Up
+              </Link>
+            </div>
           ) : (
             <div className="ml-1 flex items-center gap-2 border-l border-slate-200 pl-3">
               <div className="hidden text-right md:block">
-                <p className="max-w-32 truncate text-sm font-semibold text-slate-900">{user.name}</p>
+                <p className="max-w-32 truncate text-sm font-semibold text-slate-900">
+                  {user.name}
+                </p>
                 <p className="text-xs capitalize text-slate-400">{user.role}</p>
               </div>
               <button
