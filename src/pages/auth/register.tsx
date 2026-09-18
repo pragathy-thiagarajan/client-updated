@@ -11,13 +11,16 @@ const Register = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    role: "user",
   });
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = e.target;
 
     setForm((previous) => ({
@@ -59,10 +62,7 @@ const Register = () => {
         name: form.name.trim(),
         email: form.email.trim(),
         password: form.password,
-
-        // Public signup should create
-        // a normal attendee/user account.
-        role: "user",
+        role: form.role as "user" | "organizer",
       });
 
       setSuccess("Account created successfully. Redirecting to login...");
@@ -91,7 +91,8 @@ const Register = () => {
             </h1>
 
             <p className="mt-2 text-slate-500">
-              Create an account to book events and manage your registrations.
+              Join as an attendee to discover and book events, or register as an
+              organizer to create and manage your own events.
             </p>
           </div>
 
@@ -138,6 +139,26 @@ const Register = () => {
                 required
                 className="w-full rounded-xl border border-slate-200 px-4 py-3 outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-100"
               />
+            </div>
+            <div>
+              <label className="mb-2 block text-sm font-medium text-slate-700">
+                Register As
+              </label>
+
+              <select
+                name="role"
+                value={form.role}
+                onChange={handleChange}
+                className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-100"
+              >
+                <option value="user">Attendee</option>
+                <option value="organizer">Event Organizer</option>
+              </select>
+
+              <p className="mt-2 text-xs text-slate-500">
+                Attendees can discover and book events. Organizers can create
+                and manage events.
+              </p>
             </div>
 
             <div>
