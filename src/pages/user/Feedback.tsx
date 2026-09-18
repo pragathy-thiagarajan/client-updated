@@ -1,35 +1,27 @@
-import {
-  useState,
-} from "react";
+import { useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
-import {
-  useParams,
-  useNavigate,
-} from "react-router-dom";
+import { submitFeedback } from "../../api/feedbackApi";
 
-import {
-  submitFeedback,
-} from "../../api/feedbackApi";
+const ratingLabels: Record<number, string> = {
+  1: "Poor",
+  2: "Fair",
+  3: "Good",
+  4: "Very Good",
+  5: "Excellent",
+};
 
 const Feedback = () => {
   const { eventId } = useParams();
   const navigate = useNavigate();
 
-  const [rating, setRating] =
-    useState(5);
+  const [rating, setRating] = useState(5);
+  const [hoverRating, setHoverRating] = useState(0);
+  const [comment, setComment] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const [comment, setComment] =
-    useState("");
-
-  const [error, setError] =
-    useState("");
-
-  const [loading, setLoading] =
-    useState(false);
-
-  const handleSubmit = async (
-    e: React.FormEvent
-  ) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!eventId) {
@@ -49,110 +41,147 @@ const Feedback = () => {
 
       navigate("/my-bookings");
     } catch (error: any) {
-      setError(
-        error.response?.data?.message ||
-          "Failed to submit feedback"
-      );
+      setError(error.response?.data?.message || "Failed to submit feedback");
     } finally {
       setLoading(false);
     }
   };
 
+  const displayedRating = hoverRating || rating;
+
   return (
-    <div className="min-h-screen bg-slate-50/70 px-4 py-10">
-      <div className="mx-auto max-w-xl">
+    <div className="min-h-screen bg-slate-50 px-4 py-10 sm:py-14">
+      <div className="mx-auto max-w-2xl">
+        <Link
+          to="/my-bookings"
+          className="text-sm font-semibold text-violet-600 transition hover:text-violet-700"
+        >
+          ← Back to My Bookings
+        </Link>
 
-        <div className="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm shadow-slate-200/60">
+        <div className="mt-5 overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-xl shadow-slate-200/50">
+          {/* Header */}
 
-          <h1 className="text-2xl font-bold">
-            Event Feedback
-          </h1>
+          <div className="relative overflow-hidden bg-gradient-to-br from-slate-950 via-violet-950 to-violet-700 px-7 py-9 text-white sm:px-10">
+            <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-white/10 blur-3xl" />
 
-          <p className="mt-2 text-slate-500">
-            Share your experience.
-          </p>
+            <div className="relative">
+              <span className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider ring-1 ring-white/20">
+                Eventora Reviews
+              </span>
 
-          {error && (
-            <div className="mt-4 rounded-lg bg-red-100 p-3 text-red-700">
-              {error}
+              <h1 className="mt-5 text-3xl font-black tracking-tight">
+                How was your experience?
+              </h1>
+
+              <p className="mt-2 max-w-lg leading-6 text-violet-100/80">
+                Your feedback helps us understand your event experience.
+              </p>
             </div>
-          )}
+          </div>
 
-          <form
-            onSubmit={handleSubmit}
-            className="mt-6 space-y-5"
-          >
+          <form onSubmit={handleSubmit} className="p-7 sm:p-10">
+            {error && (
+              <div className="mb-6 rounded-xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-700">
+                {error}
+              </div>
+            )}
+
+            {/* Rating */}
 
             <div>
-              <label className="mb-2 block font-medium">
-                Rating
-              </label>
+              <p className="text-sm font-bold text-slate-800">
+                Rate your experience
+              </p>
 
-              <select
-                value={rating}
-                onChange={(e) =>
-                  setRating(
-                    Number(
-                      e.target.value
-                    )
-                  )
-                }
-                className="w-full rounded-lg border px-4 py-3"
-              >
-                <option value={5}>
-                  5 - Excellent
-                </option>
+              <p className="mt-1 text-sm text-slate-500">
+                Select between 1 and 5 stars.
+              </p>
 
-                <option value={4}>
-                  4 - Very Good
-                </option>
+              <div className="mt-5 flex items-center gap-2">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <button
+                    key={star}
+                    type="button"
+                    aria-label={`${star} star rating`}
+                    onClick={() => setRating(star)}
+                    onMouseEnter={() => setHoverRating(star)}
+                    onMouseLeave={() => setHoverRating(0)}
+                    className="text-4xl leading-none transition hover:scale-110 focus:outline-none"
+                  >
+                    <span
+                      className={
+                        star <= displayedRating
+                          ? "text-amber-400"
+                          : "text-slate-200"
+                      }
+                    >
+                      ★
+                    </span>
+                  </button>
+                ))}
+              </div>
 
-                <option value={3}>
-                  3 - Good
-                </option>
-
-                <option value={2}>
-                  2 - Fair
-                </option>
-
-                <option value={1}>
-                  1 - Poor
-                </option>
-              </select>
+              <div className="mt-3 inline-flex rounded-full bg-amber-50 px-3 py-1.5 text-sm font-bold text-amber-700">
+                {rating}/5 · {ratingLabels[rating]}
+              </div>
             </div>
 
+            {/* Divider */}
+
+            <div className="my-8 border-t border-slate-100" />
+
+            {/* Comment */}
+
             <div>
-              <label className="mb-2 block font-medium">
-                Comments
-              </label>
+              <div className="flex items-center justify-between gap-3">
+                <label
+                  htmlFor="feedback-comment"
+                  className="text-sm font-bold text-slate-800"
+                >
+                  Tell us more
+                </label>
+
+                <span className="text-xs text-slate-400">
+                  {comment.length}/500
+                </span>
+              </div>
+
+              <p className="mt-1 text-sm text-slate-500">
+                What did you enjoy about the event?
+              </p>
 
               <textarea
+                id="feedback-comment"
                 value={comment}
-                onChange={(e) =>
-                  setComment(
-                    e.target.value
-                  )
-                }
-                rows={5}
-                className="w-full rounded-lg border px-4 py-3"
-                placeholder="Tell us about your experience"
+                onChange={(e) => setComment(e.target.value.slice(0, 500))}
+                rows={6}
+                maxLength={500}
+                className="mt-4 w-full resize-none rounded-2xl border border-slate-200 bg-slate-50/50 px-4 py-4 text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-violet-500 focus:bg-white focus:ring-4 focus:ring-violet-100"
+                placeholder="Share your event experience..."
               />
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full rounded-xl bg-violet-600 py-3 text-white disabled:opacity-50"
-            >
-              {loading
-                ? "Submitting..."
-                : "Submit Feedback"}
-            </button>
+            {/* Actions */}
 
+            <div className="mt-7 flex flex-col-reverse gap-3 sm:flex-row">
+              <Link
+                to="/my-bookings"
+                className="flex-1 rounded-xl border border-slate-200 px-5 py-3.5 text-center text-sm font-bold text-slate-700 transition hover:bg-slate-50"
+              >
+                Cancel
+              </Link>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="flex-1 rounded-xl bg-violet-600 px-5 py-3.5 text-sm font-bold text-white shadow-sm transition hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                {loading ? "Submitting..." : "Submit Feedback"}
+              </button>
+            </div>
           </form>
-
         </div>
-
       </div>
     </div>
   );

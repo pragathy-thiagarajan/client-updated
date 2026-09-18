@@ -87,7 +87,7 @@ const Register = () => {
             </p>
 
             <h1 className="mt-2 text-3xl font-bold text-slate-950">
-              Join Eventora
+              Join EforEvent
             </h1>
 
             <p className="mt-2 text-slate-500">
