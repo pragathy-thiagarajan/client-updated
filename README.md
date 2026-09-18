@@ -203,4 +203,30 @@ Login → Manage Users → Review Events → Approve/Reject Events → Monitor B
 Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/pragathy-thiagarajan/client-updated
+
+## Install dependencies
+npm install
+
+## Start the application
+npm run dev
+
+## Deployment
+
+The application is deployed using:
+
+Frontend: Netlify
+Backend: Render
+Database: MongoDB Atlas
+
+## Live Application
+
+Frontend: https://eforevent.netlify.app/
+
+Backend API: https://event-management-system-backend-eosm.onrender.com
+
+## Source Code
+
+Frontend Repository: https://github.com/pragathy-thiagarajan/client-updated
+
+Backend Repository: https://github.com/pragathy-thiagarajan/event-management-system-backend
