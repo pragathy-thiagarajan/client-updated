@@ -1,13 +1,13 @@
 ## Demo Credentials
 
 ### Admin
-Email: admin@example.com
-Password: ********
+Email: eventmanagementadmin@yopmail.com
+Password: 123456
 
 ### Organizer
-Email: sundu1941@gmail.com
+Email: eventmanagementorg@yopmail.com
 Password: 123456
 
 ### Attendee / User
-Email: maradnusmarias@gmail.com
+Email: eventmanagementuser@yopmail.com
 Password: 123456
